@@ -1,0 +1,14 @@
+{
+	"name":             "number-prompt",
+	"description":      "A CLI prompt to pick a number.",
+	"version":          "0.1.0",
+	"main":             "index.js",
+	"files":            ["index.js"],
+	"keywords":         ["number", "interactive", "prompt", "command line", "cli", "terminal"],
+	"author":           "Jannis R <mail@jannisr.de>",
+	"homepage":         "https://github.com/derhuerst/number-prompt",
+	"repository":       "git://github.com/derhuerst/number-prompt.git",
+	"bugs":             "https://github.com/derhuerst/number-prompt/issues",
+	"license":          "ISC",
+	"engines":          {"node": ">=4"}
+}
