@@ -55,14 +55,12 @@ const DatePrompt = {
 	, onNumber: function (n) {
 		const now = Date.now()
 		if ((now - this.lastHit) > 1000) this.typed = '' // 1s elapsed
-		// todo: apply `typed` after 1s
 		this.typed += n
-		const typedLength = Math.abs(parseInt(this.typed)).toString().length
-		const maxLength   = Math.abs(parseInt(this.max)).toString().length
-		if (typedLength >= maxLength) // enough digits
-			this.value = Math.min(parseInt(this.typed), this.max)
-			if (this.value > this.max) this.value = this.max
-			if (this.value < this.min) this.value = this.min
+
+		this.value = Math.min(parseInt(this.typed), this.max)
+		if (this.value > this.max) this.value = this.max
+		if (this.value < this.min) this.value = this.min
+
 		this.lastHit = now
 		this.render()
 	}
