@@ -47,7 +47,7 @@ const DatePrompt = {
 		this.render()
 		this._end()
 		this.out.write('\n')
-		this._resolve(this.value)
+		this._resolve(this)
 	}
 
 
@@ -57,8 +57,10 @@ const DatePrompt = {
 		if ((now - this.lastHit) > 1000) this.typed = '' // 1s elapsed
 		// todo: apply `typed` after 1s
 		this.typed += n
-		if (this.typed.length >= this.max.toString().length) // enough digits
-			this.value = parseInt(this.typed), this.max
+		const typedLength = Math.abs(parseInt(this.typed)).toString().length
+		const maxLength   = Math.abs(parseInt(this.max)).toString().length
+		if (typedLength >= maxLength) // enough digits
+			this.value = Math.min(parseInt(this.typed), this.max)
 			if (this.value > this.max) this.value = this.max
 			if (this.value < this.min) this.value = this.min
 		this.lastHit = now
@@ -116,12 +118,10 @@ const datePrompt = (msg, opt) => new Promise((resolve, reject) => {
 	const oldRawMode = prompt.in.isRaw
 	prompt.in.setRawMode(true)
 
-	const onEnd = prompt._end = () => {
+	prompt._end = () => {
 		prompt.in.removeListener('keypress', onKeypress)
 		prompt.in.setRawMode(oldRawMode)
-		prompt.in.removeListener('end', onEnd)
 	}
-	prompt.in.on('end', onEnd)
 
 	prompt.render()
 })
