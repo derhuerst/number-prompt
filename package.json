@@ -10,5 +10,11 @@
 	"repository":       "git://github.com/derhuerst/number-prompt.git",
 	"bugs":             "https://github.com/derhuerst/number-prompt/issues",
 	"license":          "ISC",
-	"engines":          {"node": ">=4"}
+	"engines":          {"node": ">=4"},
+	"dependencies": {
+		"keypress":     "^0.2.1",
+		"cli-styles":   "^0.3",
+		"ansi-escapes": "^1.3",
+		"chalk":        "^1.1.3"
+	}
 }
