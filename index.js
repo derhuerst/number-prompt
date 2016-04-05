@@ -116,6 +116,10 @@ const datePrompt = (msg, opt) => new Promise((resolve, reject) => {
 	const oldRawMode = prompt.in.isRaw
 	prompt.in.setRawMode(true)
 
+	// todo: This feels like a dirty hack, find a clean solution.
+	// Node.js keeps track of what needs to be done before the process can be terminated. For some reason, once you attach any event listener to process.stdin, the process does not terminate, even if you have detached the event listener. `unref` tell Node.js to not watch process.stdin for pending stuff anymore.
+	// ref()
+
 	prompt._end = () => {
 		prompt.in.removeListener('keypress', onKeypress)
 		prompt.in.setRawMode(oldRawMode)
