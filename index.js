@@ -15,22 +15,23 @@ const NumberPrompt = {
 		this.typed = ''
 		this.value = this.initialValue
 		this.emit()
+		this.render()
 	}
 
 	, abort: function () {
 		this.done = this.aborted = true
+		this.emit()
 		this.render()
 		this.out.write('\n')
-		this.emit()
 		this.close()
 	}
 
 	, submit: function () {
 		this.done = true
 		this.aborted = false
+		this.emit()
 		this.render()
 		this.out.write('\n')
-		this.emit()
 		this.close()
 	}
 
@@ -57,13 +58,13 @@ const NumberPrompt = {
 		const now = Date.now()
 		if ((now - this.lastHit) > 1000) this.typed = '' // 1s elapsed
 		this.typed += n
+		this.lastHit = now
 
 		this.value = Math.min(parseInt(this.typed), this.max)
 		if (this.value > this.max) this.value = this.max
 		if (this.value < this.min) this.value = this.min
 
 		this.emit()
-		this.lastHit = now
 		this.render()
 	}
 
@@ -83,11 +84,15 @@ const NumberPrompt = {
 
 
 const defaults = {
-	  transform: ui.render()
+	  msg:       ''
+	, transform: ui.render()
 
 	, min:      -Infinity
 	, max:       Infinity
 	, value:     0
+
+	, typed:     ''
+	, lastHit:   0
 
 	, done:      false
 	, aborted:   false
@@ -100,7 +105,6 @@ const numberPrompt = (msg, opt) => {
 	let p = Object.assign(Object.create(NumberPrompt), defaults, opt)
 	p.msg          = msg
 	p.initialValue = p.value
-	p.lastHit      = Date.now()
 
 	return wrap(p)
 }
