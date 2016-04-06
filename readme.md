@@ -2,7 +2,7 @@
 
 **A CLI prompt to pick a number.**
 
-todo: asciicast
+[![asciicast](https://asciinema.org/a/41487.png)](https://asciinema.org/a/41487)
 
 [![npm version](https://img.shields.io/npm/v/number-prompt.svg)](https://www.npmjs.com/package/number-prompt)
 [![dependency status](https://img.shields.io/david/derhuerst/number-prompt.svg)](https://david-dm.org/derhuerst/number-prompt)
@@ -22,7 +22,10 @@ npm install number-prompt
 
 ```javascript
 const numberPrompt = require('number-prompt')
-numberPrompt().then(console.log, console.error)
+numberPrompt()
+.on('data', (v) => console.log('Interim value', v))
+.on('submit', (v) => console.log('Submitted with', v))
+.on('abort', (v) => console.log('Aborted with', v))
 ```
 
 
