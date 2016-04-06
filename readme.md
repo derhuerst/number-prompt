@@ -1,6 +1,6 @@
 # number-prompt 💯
 
-A CLI prompt to pick a number.
+**A CLI prompt to pick a number.**
 
 todo: asciicast
 
@@ -8,7 +8,7 @@ todo: asciicast
 [![dependency status](https://img.shields.io/david/derhuerst/number-prompt.svg)](https://david-dm.org/derhuerst/number-prompt)
 ![ISC-licensed](https://img.shields.io/github/license/derhuerst/number-prompt.svg)
 
-*number-prompt* uses [*cli-styles*](https://github.com/derhuerst/cli-styles) to have a look & feel consistent with other prompts.
+*number-prompt* uses [*cli-styles*](https://github.com/derhuerst/cli-styles) and [*prompt-skeleton*](https://github.com/derhuerst/prompt-skeleton) to have a look & feel consistent with [other prompts](https://github.com/derhuerst/prompt-skeleton#prompts-using-prompt-skeleton).
 
 
 ## Installing

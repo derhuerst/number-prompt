@@ -3,56 +3,57 @@
 const ui =       require('cli-styles')
 const esc =      require('ansi-escapes')
 const chalk =    require('chalk')
-const keypress = require('keypress')
+const wrap =     require('prompt-skeleton')
 
 
-
-const defaults = {
-	  in:        process.stdin
-	, out:       process.stdout
-
-	, transform: ui.render()
-
-	, min:      -Infinity
-	, max:       Infinity
-	, value:     0
-	, lastHit:   0
-
-	, done:      false
-	, aborted:   false
-}
 
 const isNumber = /[0-9]/
 
-
-
-const DatePrompt = {
+const NumberPrompt = {
 
 	  reset: function () {
-		this.value = this.initialValue
 		this.typed = ''
+		this.value = this.initialValue
+		this.emit()
 	}
 
 	, abort: function () {
 		this.done = this.aborted = true
 		this.render()
-		this._end()
 		this.out.write('\n')
-		this._reject()
+		this.emit()
+		this.close()
 	}
 
 	, submit: function () {
 		this.done = true
 		this.aborted = false
 		this.render()
-		this._end()
 		this.out.write('\n')
-		this._resolve(this)
+		this.emit()
+		this.close()
+	}
+
+	, up: function () {
+		this.typed = ''
+		if (this.value >= this.max) return this.bell()
+		this.value++
+		this.emit()
+		this.render()
+	}
+	, down: function () {
+		this.typed = ''
+		if (this.value <= this.min) return this.bell()
+		this.value--
+		this.emit()
+		this.render()
 	}
 
 
 
-	, onNumber: function (n) {
+	, _: function (n) {
+		if (!isNumber.test(n)) return this.bell()
+
 		const now = Date.now()
 		if ((now - this.lastHit) > 1000) this.typed = '' // 1s elapsed
 		this.typed += n
@@ -61,20 +62,8 @@ const DatePrompt = {
 		if (this.value > this.max) this.value = this.max
 		if (this.value < this.min) this.value = this.min
 
+		this.emit()
 		this.lastHit = now
-		this.render()
-	}
-
-	, up: function () {
-		if (this.value >= this.max) return this.out.write(esc.beep)
-		this.value++
-		this.typed = ''
-		this.render()
-	}
-	, down: function () {
-		if (this.value <= this.min) return this.out.write(esc.beep)
-		this.value--
-		this.typed = ''
 		this.render()
 	}
 
@@ -93,41 +82,29 @@ const DatePrompt = {
 
 
 
-const datePrompt = (msg, opt) => new Promise((resolve, reject) => {
+const defaults = {
+	  transform: ui.render()
+
+	, min:      -Infinity
+	, max:       Infinity
+	, value:     0
+
+	, done:      false
+	, aborted:   false
+}
+
+const numberPrompt = (msg, opt) => {
 	if ('string' !== typeof msg) throw new Error('Message must be string.')
 	if (Array.isArray(opt) || 'object' !== typeof opt) opt = {}
 
-	let prompt = Object.assign(Object.create(DatePrompt), defaults, opt)
-	Object.assign(prompt, {
-		  msg
-		, initialValue: prompt.value
-		, _resolve:     resolve
-		, _reject:      reject
-	})
+	let p = Object.assign(Object.create(NumberPrompt), defaults, opt)
+	p.msg          = msg
+	p.initialValue = p.value
+	p.lastHit      = Date.now()
 
-	const onKeypress = function (raw, key) {
-		let c = ui.keypress(raw, key)
-		if (prompt[c]) prompt[c]()
-		else if (isNumber.test(c)) prompt.onNumber(c)
-	}
-	keypress(prompt.in)
-	prompt.in.on('keypress', onKeypress)
-
-	const oldRawMode = prompt.in.isRaw
-	prompt.in.setRawMode(true)
-
-	// todo: This feels like a dirty hack, find a clean solution.
-	// Node.js keeps track of what needs to be done before the process can be terminated. For some reason, once you attach any event listener to process.stdin, the process does not terminate, even if you have detached the event listener. `unref` tell Node.js to not watch process.stdin for pending stuff anymore.
-	// ref()
-
-	prompt._end = () => {
-		prompt.in.removeListener('keypress', onKeypress)
-		prompt.in.setRawMode(oldRawMode)
-	}
-
-	prompt.render()
-})
+	return wrap(p)
+}
 
 
 
-module.exports = Object.assign(datePrompt, {DatePrompt})
+module.exports = Object.assign(numberPrompt, {NumberPrompt})
