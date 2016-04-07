@@ -23,7 +23,7 @@ npm install number-prompt
 ```javascript
 const numberPrompt = require('number-prompt')
 numberPrompt()
-.on('data', (v) => console.log('Interim value', v))
+.on('data', (e) => console.log('Interim value', e.value))
 .on('submit', (v) => console.log('Submitted with', v))
 .on('abort', (v) => console.log('Aborted with', v))
 ```
