@@ -22,11 +22,19 @@ npm install number-prompt
 
 ```javascript
 const numberPrompt = require('number-prompt')
-numberPrompt()
+numberPrompt('How old are you?')
 .on('data', (e) => console.log('Interim value', e.value))
 .on('submit', (v) => console.log('Submitted with', v))
 .on('abort', (v) => console.log('Aborted with', v))
 ```
+
+
+## Related
+
+- [`date-prompt`](https://github.com/derhuerst/date-prompt)
+- [`multiselect-prompt`](https://github.com/derhuerst/multiselect-prompt)
+- [`select-prompt`](https://github.com/derhuerst/select-prompt)
+- [`text-prompt`](https://github.com/derhuerst/text-prompt)
 
 
 ## Contributing

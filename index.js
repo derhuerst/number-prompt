@@ -76,7 +76,9 @@ const NumberPrompt = {
 
 		this.out.write(esc.eraseLine + esc.cursorTo(0) + [
 			  ui.symbol(this.done, this.aborted)
-			, chalk.bold(this.msg), ui.delimiter, value
+			, chalk.bold(this.msg)
+			, ui.delimiter(this.done)
+			, value
 		].join(' '))
 	}
 }
