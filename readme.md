@@ -31,10 +31,12 @@ numberPrompt('How old are you?')
 
 ## Related
 
+- [`mail-prompt`](https://github.com/derhuerst/mail-prompt)
 - [`date-prompt`](https://github.com/derhuerst/date-prompt)
 - [`multiselect-prompt`](https://github.com/derhuerst/multiselect-prompt)
 - [`select-prompt`](https://github.com/derhuerst/select-prompt)
 - [`text-prompt`](https://github.com/derhuerst/text-prompt)
+- [`cli-autocomplete`](https://github.com/derhuerst/cli-autocomplete)
 
 
 ## Contributing
