@@ -1,12 +1,17 @@
 # number-prompt 💯
 
-**A CLI prompt to pick a number.**
+**Deprecated. Use the [number prompt](https://github.com/enquirer/enquirer#number-prompt) from [`enquirer`](https://github.com/enquirer/enquirer).**
+
+---
+
+A CLI prompt to pick a number.
 
 [![asciicast](https://asciinema.org/a/41487.png)](https://asciinema.org/a/41487)
 
 [![npm version](https://img.shields.io/npm/v/number-prompt.svg)](https://www.npmjs.com/package/number-prompt)
 [![dependency status](https://img.shields.io/david/derhuerst/number-prompt.svg)](https://david-dm.org/derhuerst/number-prompt)
 ![ISC-licensed](https://img.shields.io/github/license/derhuerst/number-prompt.svg)
+[![chat on gitter](https://badges.gitter.im/derhuerst.svg)](https://gitter.im/derhuerst)
 
 *number-prompt* uses [*cli-styles*](https://github.com/derhuerst/cli-styles) and [*prompt-skeleton*](https://github.com/derhuerst/prompt-skeleton) to have a look & feel consistent with [other prompts](https://github.com/derhuerst/prompt-skeleton#prompts-using-prompt-skeleton).
 
@@ -31,11 +36,11 @@ numberPrompt('How old are you?')
 
 ## Related
 
-- [`mail-prompt`](https://github.com/derhuerst/mail-prompt)
 - [`date-prompt`](https://github.com/derhuerst/date-prompt)
+- [`mail-prompt`](https://github.com/derhuerst/mail-prompt)
 - [`multiselect-prompt`](https://github.com/derhuerst/multiselect-prompt)
-- [`select-prompt`](https://github.com/derhuerst/select-prompt)
-- [`text-prompt`](https://github.com/derhuerst/text-prompt)
+- [`range-prompt`](https://github.com/derhuerst/range-prompt)
+- [`tree-select-prompt`](https://github.com/derhuerst/tree-select-prompt)
 - [`cli-autocomplete`](https://github.com/derhuerst/cli-autocomplete)
 
 
